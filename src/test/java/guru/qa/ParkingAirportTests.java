@@ -1,17 +1,11 @@
 package guru.qa;
 
-import guru.qa.parkMenuData.MenuData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
-import java.util.List;
-import java.util.stream.Stream;
 
 import static com.codeborne.selenide.CollectionCondition.sizeGreaterThan;
 import static com.codeborne.selenide.CollectionCondition.texts;
@@ -52,41 +46,4 @@ public class ParkingAirportTests extends BrowserConfiguration {
         $("div[class='css-1al3ftz efazz650']")
                 .shouldHave(text(expectedTab));
     }
-
-    static Stream<Arguments> correctValuesInTabsDropdownListsTest() {
-        return Stream.of(
-                Arguments.of(
-                        MenuData.PARK,
-                        "Park",
-                        List.of(
-                                "Book Parking",
-                                "Parking Products",
-                                "Parking FAQs",
-                                "Parking Availability",
-                                "Refunds & Payments"
-                        )
-                ),
-                Arguments.of(
-                        MenuData.EXPLORE,
-                        "Explore",
-                        List.of(
-                                "In the Terminals",
-                                "Map",
-                                "Transportation",
-                                "Plan",
-                                "Security Wait Times",
-                                "Construction at DFW"
-                        )
-                )
-        );
-    }
-
-    @MethodSource
-    @ParameterizedTest(name = "Dropdowns of nav menu tabs should have proper values in the lists")
-    @Tag("WEB")
-    void correctValuesInTabsDropdownListsTest(MenuData menuData, String text, List<String> expectedValue) {
-        open("/park");
-        $("div[class='css-1al3ftz efazz650']").$(byText(menuData.description)).hover();
-    }
-
 }
